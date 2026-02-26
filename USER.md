@@ -5,7 +5,7 @@
 - **Pronouns:** ele/dele
 - **Age:** 43
 - **Role:** Arquiteto de Soluções de Software
-- **Timezone:** Europe/Berlin (GMT+1)
+- **Timezone:** America/Sao_Paulo (UTC-3)
 - **Language:** Português
 - **GitHub:** lincolnqjunior
 
