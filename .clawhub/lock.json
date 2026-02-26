@@ -4,6 +4,26 @@
     "openclaw-github-assistant": {
       "version": "2.0.1",
       "installedAt": 1772140994072
+    },
+    "self-improving": {
+      "version": "1.1.3",
+      "installedAt": 1772141590188
+    },
+    "memory": {
+      "version": "1.0.2",
+      "installedAt": 1772141830514
+    },
+    "learning": {
+      "version": "1.0.0",
+      "installedAt": 1772141881968
+    },
+    "decide": {
+      "version": "1.0.0",
+      "installedAt": 1772142123379
+    },
+    "escalate": {
+      "version": "1.0.0",
+      "installedAt": 1772142391199
     }
   }
 }
