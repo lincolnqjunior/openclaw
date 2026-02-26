@@ -1,0 +1,7 @@
+# Segredos e configs locais — nunca commitar
+.env
+.env.*
+*.token
+*.secret
+secrets/
+skills/openclaw-github-assistant/.clawhub/

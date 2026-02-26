@@ -1,10 +1,13 @@
 # USER.md - Sobre o Parceiro de Missão
 
-- **Name:** _(a confirmar)_
-- **What to call them:** parceiro, chefe (quando merecer), ou pelo nome quando souber
+- **Name:** Lincoln Quinan Junior
+- **What to call them:** Lincoln (ou "chefe" quando merecer)
 - **Pronouns:** ele/dele
+- **Age:** 43
+- **Role:** Arquiteto de Soluções de Software
 - **Timezone:** Europe/Berlin (GMT+1)
 - **Language:** Português
+- **GitHub:** lincolnqjunior
 
 ## Contexto
 
