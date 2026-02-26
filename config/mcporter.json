@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "notebooklm": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "notebooklm-mcp@latest"]
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"],
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "10000"
+      }
+    },
+    "time": {
+      "type": "stdio",
+      "command": "/home/lincoln/.mcp-env/bin/python",
+      "args": ["-m", "mcp_server_time", "--local-timezone", "America/Sao_Paulo"],
+      "env": {}
+    }
+  }
+}

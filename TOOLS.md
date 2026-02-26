@@ -77,6 +77,18 @@ Configurações técnicas, credenciais e detalhes de instalação. Para **como u
 
 - **Config:** `./config/mcporter.json` (relativo ao workspace)
 - `mcporter list` / `mcporter call <server.tool> key=value` / `mcporter config add`
+- Sempre rodar com `cd /home/lincoln/.openclaw/workspace` antes (config é path relativo)
+
+### MCPs configurados
+
+| Server | Tipo | Status | Notas |
+|--------|------|--------|-------|
+| `time` | stdio | ✅ online | Python `~/.mcp-env`, timezone America/Sao_Paulo |
+| `notebooklm` | stdio | on-demand | npx, conecta quando chamado |
+| `context7` | stdio | on-demand | npx + DEFAULT_MINIMUM_TOKENS=10000 |
+
+- **Python env para MCPs:** `~/.mcp-env` (uv venv, mcp-server-time instalado)
+- **Timezone:** server OS = Europe/Berlin, mas MCPs usam America/Sao_Paulo explicitamente
 
 ---
 
