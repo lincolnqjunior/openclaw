@@ -24,6 +24,10 @@
     "escalate": {
       "version": "1.0.0",
       "installedAt": 1772142391199
+    },
+    "tavily": {
+      "version": "1.0.0",
+      "installedAt": 1772144781382
     }
   }
 }

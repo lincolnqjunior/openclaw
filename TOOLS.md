@@ -38,9 +38,26 @@ Comandos úteis:
 - **Correções:** `~/self-improving/corrections.md`
 - **Promoção:** padrão repetido 3x → sobe pra HOT; inativo 30d → desce pra WARM
 
+## Tavily Search
+
+- **API Key:** configurada em `openclaw.json` (skills.entries.tavily)
+- **Python env:** `~/.tavily-env` (uv venv, tavily-python 0.7.22)
+- **Script:** `~/.openclaw/workspace/skills/tavily/scripts/tavily_search.py`
+- **Uso:** `TAVILY_API_KEY=... ~/.tavily-env/bin/python <script> "query" [--depth advanced] [--topic news]`
+
 ---
 
-## Gateway
+## mcporter (MCP Client)
+
+- **Versão:** 0.7.3
+- **Config:** `./config/mcporter.json` (workspace-relative)
+- **Comandos úteis:**
+  - `mcporter list` — lista servers configurados
+  - `mcporter call <server.tool> key=value` — chama tool diretamente
+  - `mcporter config add` — registra novo MCP server
+- **MCP Tavily (remote):** `https://mcp.tavily.com/mcp/?tavilyApiKey=tvly-dev-...` (disponível mas não configurado — usando script local)
+
+---
 
 - **Porta:** 18789 (loopback)
 - **Serviço:** systemd user (`openclaw-gateway.service`)
