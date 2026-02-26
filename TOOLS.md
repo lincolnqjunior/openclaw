@@ -20,6 +20,34 @@ Comandos úteis:
 
 ---
 
+## TTS — sag (ElevenLabs v0.2.2)
+
+- **Voz padrão:** Brian — Deep, Resonant and Comforting (`nPczCjzI2devNBz1zQrb`)
+- **Modelo:** `eleven_v3` (default)
+- **API key:** injetada via systemd (`ELEVENLABS_API_KEY`)
+- **LD_LIBRARY_PATH:** `/home/linuxbrew/.linuxbrew/lib` (necessário para libasound)
+- **Uso:** `sag "texto"` ou `sag -o /tmp/out.mp3 "texto"` para gerar arquivo
+
+---
+
+## Whisper (transcrição de áudio)
+
+- **Provider:** OpenAI API (`whisper-1`)
+- **Script:** `~/.npm-global/lib/node_modules/openclaw/skills/openai-whisper-api/scripts/transcribe.sh`
+- **API key:** mesma do openai-whisper-api (configurada em `openclaw.json`)
+- **Uso:** `transcribe.sh /path/to/audio.ogg --out /tmp/transcript.txt`
+- **Formatos suportados:** ogg, mp3, m4a, wav, etc.
+
+---
+
+## ffmpeg
+
+- **Versão:** 8.0.1
+- **Instalado via:** brew (`/home/linuxbrew/.linuxbrew/bin/ffmpeg`)
+- Necessário para conversão de áudio/vídeo e suporte ao sag
+
+---
+
 ## Memory Search
 
 - **Provider:** openai (`text-embedding-3-small`)
@@ -38,12 +66,14 @@ Comandos úteis:
 - **Correções:** `~/self-improving/corrections.md`
 - **Promoção:** padrão repetido 3x → sobe pra HOT; inativo 30d → desce pra WARM
 
+---
+
 ## Tavily Search
 
 - **API Key:** configurada em `openclaw.json` (skills.entries.tavily)
 - **Python env:** `~/.tavily-env` (uv venv, tavily-python 0.7.22)
 - **Script:** `~/.openclaw/workspace/skills/tavily/scripts/tavily_search.py`
-- **Uso:** `TAVILY_API_KEY=... ~/.tavily-env/bin/python <script> "query" [--depth advanced] [--topic news]`
+- **Uso:** `~/.tavily-env/bin/python <script> "query" [--depth advanced] [--topic news]`
 
 ---
 
@@ -55,9 +85,11 @@ Comandos úteis:
   - `mcporter list` — lista servers configurados
   - `mcporter call <server.tool> key=value` — chama tool diretamente
   - `mcporter config add` — registra novo MCP server
-- **MCP Tavily (remote):** `https://mcp.tavily.com/mcp/?tavilyApiKey=tvly-dev-...` (disponível mas não configurado — usando script local)
+- **MCP Tavily (remote):** `https://mcp.tavily.com/mcp/?tavilyApiKey=tvly-dev-...` (disponível mas não ativo — usando script local)
 
 ---
+
+## Gateway
 
 - **Porta:** 18789 (loopback)
 - **Serviço:** systemd user (`openclaw-gateway.service`)
@@ -73,6 +105,7 @@ Comandos úteis:
 - `learning` — adapta estilo de ensino
 - `memory` — memória categorizada adicional
 - `self-improving` — auto-reflexão e aprendizado com correções
+- `tavily` — busca web otimizada para LLMs
 
 ---
 
