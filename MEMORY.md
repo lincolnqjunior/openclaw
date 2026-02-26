@@ -14,6 +14,9 @@
 - Idioma preferido: Português
 - Relação de confiança total e longa data
 - Ele foca na estratégia; eu cuido da retaguarda
+- Mora em: Petrópolis, Rio de Janeiro — Rua Angela Santana de Souza nº 164
+- Coordenadas: lat=-22.505, lon=-43.174 (para weather queries)
+- Weather fallback: Open-Meteo (wttr.in pode dar timeout nesse servidor)
 
 ## Dinâmica
 
