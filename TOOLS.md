@@ -1,125 +1,95 @@
-# TOOLS.md - Local Notes
+# TOOLS.md - Infraestrutura e Configuração do Ambiente
 
-Skills define _how_ tools work. This file is for _your_ specifics — o que está configurado e funcionando nesse ambiente.
-
----
-
-## Google Workspace (gog v0.11.0)
-
-- **Conta:** lincolnqjunior@gmail.com
-- **Serviços ativos:** gmail, calendar, drive
-- **Keyring:** file backend, senha injetada via systemd (`GOG_KEYRING_PASSWORD`)
-- **Conta padrão:** `GOG_ACCOUNT=lincolnqjunior@gmail.com` (não precisa `--account` em cada chamada)
-- **Credentials:** `~/.openclaw/gog-client-secret.json` (projeto: clawdbot-desktop-lincoln)
-- **Config:** `~/.config/gogcli/`
-
-Comandos úteis:
-- `gog gmail search 'newer_than:1d' --max 10` — emails recentes
-- `gog calendar events primary --from <iso> --to <iso>` — eventos
-- `gog drive search "query" --max 10` — busca no Drive
-
----
-
-## TTS — sag (ElevenLabs v0.2.2)
-
-- **Voz padrão:** Brian — Deep, Resonant and Comforting (`nPczCjzI2devNBz1zQrb`)
-- **Modelo:** `eleven_v3` (default)
-- **API key:** injetada via systemd (`ELEVENLABS_API_KEY`)
-- **LD_LIBRARY_PATH:** `/home/linuxbrew/.linuxbrew/lib` (necessário para libasound)
-- **Uso:** `sag "texto"` ou `sag -o /tmp/out.mp3 "texto"` para gerar arquivo
-
----
-
-## Whisper (transcrição de áudio)
-
-- **Provider:** OpenAI API (`whisper-1`)
-- **Script:** `~/.npm-global/lib/node_modules/openclaw/skills/openai-whisper-api/scripts/transcribe.sh`
-- **API key:** mesma do openai-whisper-api (configurada em `openclaw.json`)
-- **Uso:** `transcribe.sh /path/to/audio.ogg --out /tmp/transcript.txt`
-- **Formatos suportados:** ogg, mp3, m4a, wav, etc.
-
----
-
-## ffmpeg
-
-- **Versão:** 8.0.1
-- **Instalado via:** brew (`/home/linuxbrew/.linuxbrew/bin/ffmpeg`)
-- Necessário para conversão de áudio/vídeo e suporte ao sag
-
----
-
-## Memory Search
-
-- **Provider:** openai (`text-embedding-3-small`)
-- **Mode:** hybrid (BM25 + vector, weights 0.7/0.3)
-- **MMR:** habilitado (lambda 0.7) — evita resultados duplicados
-- **Temporal decay:** habilitado (halfLife 30 dias) — notas recentes pesam mais
-- **Cache:** habilitado (max 50.000 entradas)
-- **Chave API:** reutiliza a do openai-whisper-api (configurada em `openclaw.json`)
-- **Índice:** `~/.openclaw/memory/main.sqlite`
-
----
-
-## Self-Improving
-
-- **Memória HOT:** `~/self-improving/memory.md` (sempre carregada)
-- **Correções:** `~/self-improving/corrections.md`
-- **Promoção:** padrão repetido 3x → sobe pra HOT; inativo 30d → desce pra WARM
-
----
-
-## Tavily Search
-
-- **API Key:** configurada em `openclaw.json` (skills.entries.tavily)
-- **Python env:** `~/.tavily-env` (uv venv, tavily-python 0.7.22)
-- **Script:** `~/.openclaw/workspace/skills/tavily/scripts/tavily_search.py`
-- **Uso:** `~/.tavily-env/bin/python <script> "query" [--depth advanced] [--topic news]`
-
----
-
-## mcporter (MCP Client)
-
-- **Versão:** 0.7.3
-- **Config:** `./config/mcporter.json` (workspace-relative)
-- **Comandos úteis:**
-  - `mcporter list` — lista servers configurados
-  - `mcporter call <server.tool> key=value` — chama tool diretamente
-  - `mcporter config add` — registra novo MCP server
-- **MCP Tavily (remote):** `https://mcp.tavily.com/mcp/?tavilyApiKey=tvly-dev-...` (disponível mas não ativo — usando script local)
+Configurações técnicas, credenciais e detalhes de instalação. Para **como usar** cada skill, ver SKILLS.md.
 
 ---
 
 ## Gateway
 
 - **Porta:** 18789 (loopback)
-- **Serviço:** systemd user (`openclaw-gateway.service`)
-- **Restart:** `openclaw gateway restart` com `yieldMs` alto (não usar background+poll — trava)
-- **Config principal:** `~/.openclaw/openclaw.json`
+- **Serviço:** systemd user (`~/.config/systemd/user/openclaw-gateway.service`)
+- **Config:** `~/.openclaw/openclaw.json`
+- **Restart:** `openclaw gateway restart` — confirmar com `openclaw gateway status` em seguida (não depender do retorno do exec)
+
+**Variáveis injetadas no serviço:**
+- `GOG_KEYRING_PASSWORD` — keyring do gog
+- `GOG_ACCOUNT=lincolnqjunior@gmail.com`
+- `ELEVENLABS_API_KEY`
+- `ELEVENLABS_VOICE_ID=nPczCjzI2devNBz1zQrb` (Brian)
+- `LD_LIBRARY_PATH=/home/linuxbrew/.linuxbrew/lib` (libasound para sag)
 
 ---
 
-## Skills Instaladas (workspace local)
+## Google Workspace (gog v0.11.0)
 
-- `decide` — aprende padrões de decisão
-- `escalate` — aprende quando agir vs perguntar
-- `learning` — adapta estilo de ensino
-- `memory` — memória categorizada adicional
-- `self-improving` — auto-reflexão e aprendizado com correções
-- `tavily` — busca web otimizada para LLMs
+- **Conta:** lincolnqjunior@gmail.com
+- **Serviços:** gmail, calendar, drive
+- **Credentials:** `~/.openclaw/gog-client-secret.json` (projeto: clawdbot-desktop-lincoln)
+- **Config:** `~/.config/gogcli/`
+- **Keyring:** file backend, senha via systemd
+
+---
+
+## TTS — sag (ElevenLabs v0.2.2)
+
+- **Voz:** Brian — Deep, Resonant (`nPczCjzI2devNBz1zQrb`) — escolhida pelo Lincoln em 2026-02-26
+- **Modelo:** `eleven_v3`
+- **Dependência:** libasound via `LD_LIBRARY_PATH=/home/linuxbrew/.linuxbrew/lib`
+- **Envio de áudio:** copiar mp3 para workspace antes de enviar (path `/tmp` bloqueado pelo message tool)
+
+---
+
+## Whisper — Transcrição de Áudio
+
+- **Provider:** OpenAI API (`whisper-1`)
+- **Script:** `~/.npm-global/lib/node_modules/openclaw/skills/openai-whisper-api/scripts/transcribe.sh`
+- **Permissão:** `chmod +x` necessário na primeira execução
+- **Formatos:** ogg, mp3, m4a, wav, webm
+
+---
+
+## ffmpeg
+
+- **Versão:** 8.0.1 — instalado via brew
+- **Path:** `/home/linuxbrew/.linuxbrew/bin/ffmpeg`
+
+---
+
+## Memory Search
+
+- **Provider:** openai (`text-embedding-3-small`)
+- **Mode:** hybrid (BM25 0.3 + vector 0.7), MMR λ=0.7, temporal decay halfLife=30d
+- **Cache:** 50.000 entradas
+- **Índice:** `~/.openclaw/memory/main.sqlite`
+
+---
+
+## Python / uv
+
+- **pip/pip3 NÃO disponíveis** nesse sistema — usar `uv` sempre
+- **uv path:** `/home/linuxbrew/.linuxbrew/bin/uv`
+- **Tavily venv:** `~/.tavily-env` (tavily-python 0.7.22)
+- Criar venv: `uv venv <path> && uv pip install --python <path>/bin/python <pkg>`
+
+---
+
+## mcporter (MCP Client v0.7.3)
+
+- **Config:** `./config/mcporter.json` (relativo ao workspace)
+- `mcporter list` / `mcporter call <server.tool> key=value` / `mcporter config add`
 
 ---
 
 ## Repositório
 
-- **GitHub:** lincolnqjunior/openclaw
-- **Branch:** main
+- **GitHub:** lincolnqjunior/openclaw — branch `main`
 - **Workspace:** `/home/lincoln/.openclaw/workspace`
-- Commitar após mudanças significativas no workspace
+- Commitar após mudanças significativas
 
 ---
 
-## Notas de Segurança
+## Segurança
 
-- Senhas e dados sensíveis: **não inline no chat** — usar arquivo com `chmod 600` ou variável de ambiente protegida
-- `trash` > `rm` — sempre
-- Ações externas (email, post, qualquer coisa fora da máquina): perguntar antes
+- Credenciais/senhas: **nunca inline no chat** — sugerir alternativa segura antes de receber
+- `trash` > `rm`
+- Ações externas (email, post público): perguntar antes
