@@ -28,6 +28,18 @@
     "tavily": {
       "version": "1.0.0",
       "installedAt": 1772144781382
+    },
+    "ai-humanizer": {
+      "version": "2.1.0",
+      "installedAt": 1772146221313
+    },
+    "clawdbot-documentation-expert": {
+      "version": "1.0.0",
+      "installedAt": 1772146299707
+    },
+    "ontology": {
+      "version": "0.1.2",
+      "installedAt": 1772146322793
     }
   }
 }
