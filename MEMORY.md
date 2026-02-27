@@ -77,9 +77,15 @@ agent-council, ai-humanizer, clawdbot-documentation-expert, decide, escalate, le
 ## Operação Multi-agente (aprendido com doc da Oráculo)
 
 ### Como acionar agentes
-- `sessions_send(agentId="oraculo", message="...")` — envia mensagem e aguarda resposta (com timeout)
-- `sessions_spawn(agentId="...", task="...", mode="run")` — sub-agente isolado one-shot, resultado entregue automaticamente no canal de origem
-- `sessions_list` — listar sessões ativas para verificar se agente tem sessão aberta
+- `sessions_send(sessionKey="agent:oraculo:main", message="...", timeoutSeconds=30)` — canal direto com a Oráculo ✅ confirmado
+- `sessions_send(sessionKey="agent:postmaster:main", message="...", timeoutSeconds=30)` — canal direto com o PostMaster
+- `sessions_spawn(task="...", mode="run")` — sub-agente isolado one-shot, resultado entregue automaticamente no canal de origem
+- `sessions_list` — listar sessões ativas
+
+### Configuração necessária para agent-to-agent
+- `tools.sessions.visibility: "all"` — visibilidade cross-agent
+- `tools.agentToAgent: { enabled: true, allow: ["main", "postmaster", "oraculo"] }` — canal habilitado entre os três agentes
+- sessionKey format: `agent:<agentId>:main`
 
 ### Roteamento de mensagens
 - Bindings determinísticos: match de peer → parentPeer → accountId → fallback para agente default
