@@ -92,7 +92,25 @@ Configurações técnicas, credenciais e detalhes de instalação. Para **como u
 
 ---
 
-## Repositório
+## WhatsApp
+
+- **Número do bot:** +5524981000288
+- **Número pessoal Lincoln:** +5521964833107
+- **Grupo ativo:** Red Lab Solutions (`120363406935049097@g.us`)
+- **Config:** `groupPolicy: allowlist`, `groupAllowFrom: ["+5521964833107"]`, `groups: ["120363406935049097@g.us"]`
+- **Credenciais:** `~/.openclaw/credentials/whatsapp/`
+
+---
+
+## Todoist
+
+- **CLI:** todoist-ts-cli (global npm)
+- **Token:** `~/.todoist-token` (chmod 600) + `TODOIST_API_TOKEN` no systemd
+- **Uso:** `TODOIST_API_TOKEN=$(cat ~/.todoist-token) todoist <cmd>`
+
+---
+
+
 
 - **GitHub:** lincolnqjunior/openclaw — branch `main`
 - **Workspace:** `/home/lincoln/.openclaw/workspace`
