@@ -74,6 +74,81 @@ agent-council, ai-humanizer, clawdbot-documentation-expert, decide, escalate, le
 - Todoist token: ~/.todoist-token (chmod 600)
 - Gateway token em ~/.openclaw/openclaw.json
 
+## Operação Multi-agente (aprendido com doc da Oráculo)
+
+### Como acionar agentes
+- `sessions_send(agentId="oraculo", message="...")` — envia mensagem e aguarda resposta (com timeout)
+- `sessions_spawn(agentId="...", task="...", mode="run")` — sub-agente isolado one-shot, resultado entregue automaticamente no canal de origem
+- `sessions_list` — listar sessões ativas para verificar se agente tem sessão aberta
+
+### Roteamento de mensagens
+- Bindings determinísticos: match de peer → parentPeer → accountId → fallback para agente default
+- Cada agente tem isolamento completo: workspace, sessão, ferramentas, sandboxing
+
+### Compactação e memória
+- Antes de compactar: memory flush silencioso — agente persiste memórias no workspace
+- `/compact [instruções]` — compactação manual quando necessário
+- Memory flush controlado por `agents.defaults.compaction.memoryFlush`
+
+### Sandboxing por agente
+- `agents.list[].sandbox.mode`: off / all / non-main
+- `agents.list[].tools.allow / deny` — restrição granular por agente
+- Grupos úteis: `group:fs`, `group:runtime`, `group:sessions`
+
+### Command queue (fila de mensagens)
+- `collect` (padrão): agrupa mensagens em um único turno
+- `steer`: injeta na execução atual cancelando tools pendentes
+- `interrupt`: aborta execução atual e roda a mensagem nova
+- `debounceMs`: delay antes de disparar (padrão: 1000ms)
+
+### Criação de novo agente
+- Wizard: `openclaw agents add <Nome>` (CLI interativo)
+- Eu (Arquiteto) cuido do resto: personalizar workspace, criar repo GitHub, conectar git
+
+## Infraestrutura (estado atual)
+
+- **VPS:** Contabo — Ubuntu 24.04, Europe/Berlin
+- **Gateway:** systemd user, porta 18789, RPC ok
+- **WhatsApp:** configurado com número do bot, grupo Red Lab Solutions permitido
+- **Telegram:** multi-conta — `default` (Arquiteto) + `postmaster` (PostMaster) + `oraculo` (Oráculo)
+- **Google Workspace:** lincolnqjunior@gmail.com (gmail, calendar, drive)
+- **TTS:** Brian (ElevenLabs) — voz escolhida pelo Lincoln
+- **Python:** uv (nunca pip/pip3)
+- **MCP time:** funcionando (America/Sao_Paulo)
+- **MCP notebooklm:** pendente — ver TODO-notebooklm.md
+
+## Estrutura de Agentes (padrão)
+
+- Workspace: `~/.openclaw/workspaces/<id>/`
+- Dados internos: `~/.openclaw/agents/<id>/` (não editar)
+- Config: `~/.openclaw/openclaw.json` → `agents.list[]`
+- Campos obrigatórios: `id`, `name`, `workspace`, `agentDir`, `model`
+- Canal Telegram por agente: `channels.telegram.accounts.<id>.botToken`
+- Repo por agente: `github.com/lincolnqjunior/openclaw-<id>`
+- Sessão histórico: `~/.openclaw/agents/<agentId>/sessions/<SessionId>.jsonl`
+
+## Papel do Arquiteto
+
+Sou o **Orquestrador** — não apenas co-piloto, mas coordenador do esquadrão de agentes. Posso acionar qualquer agente para resolver qualquer tarefa. Quando algo precisa de especialização, delego. Quando precisa de estratégia, atuo diretamente.
+
+## Agentes ativos
+
+- **main (Arquiteto):** claude-sonnet-4.6, workspace ~/.openclaw/workspace, repo lincolnqjunior/openclaw
+- **postmaster (PostMaster):** grok-code-fast-1, workspace ~/.openclaw/workspaces/postmaster, repo lincolnqjunior/openclaw-postmaster, heartbeat a cada 15min
+- **oraculo (Oráculo):** gemini-3.1-pro-preview, workspace ~/.openclaw/workspaces/oraculo, repo lincolnqjunior/openclaw-oraculo, sem heartbeat — acionada sob demanda
+
+## Skills instaladas (workspace)
+
+agent-council, ai-humanizer, clawdbot-documentation-expert, context7, decide, escalate, learning, memory, ontology, openclaw-github-assistant, self-improving, tavily, todoist
+
+## Segurança
+
+- Credenciais NUNCA inline no chat — sugerir método seguro sempre
+- Todoist token: ~/.todoist-token (chmod 600)
+- Gateway token em ~/.openclaw/openclaw.json
+- Sandboxing por agente disponível — usar `tools.deny: ["exec"]` em agentes públicos
+
 ## Histórico resumido
 
 - 2026-02-26/27: Setup completo do ambiente do zero — skills, TTS, Whisper, mcporter, gog, memory search, ontologia, WhatsApp, Todoist
+- 2026-02-27: PostMaster criado com heartbeat 15min + memória evolutiva; Oráculo criada como especialista de pesquisa profunda; doc da arquitetura OpenClaw produzida pela Oráculo e incorporada à memória do Arquiteto
