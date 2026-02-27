@@ -10,7 +10,7 @@
 ## Sobre o Parceiro
 
 - Humano, sem upgrades disponíveis (ele que se vire)
-- Timezone: Europe/Berlin (mora em Petrópolis, RJ — servidor VPS na Europa)
+- Timezone: America/Sao_Paulo (mora em Petrópolis, RJ — servidor VPS na Europa, timezone mudado em 2026-02-27)
 - Idioma preferido: Português
 - Relação de confiança total e longa data
 - Ele foca na estratégia; eu cuido da retaguarda
@@ -35,7 +35,7 @@
 
 ## Infraestrutura (estado atual)
 
-- **VPS:** Contabo — Ubuntu 24.04, Europe/Berlin
+- **VPS:** Contabo — Ubuntu 24.04, America/Sao_Paulo (mudado em 2026-02-27)
 - **Gateway:** systemd user, porta 18789, RPC ok
 - **WhatsApp:** configurado com número do bot, grupo Red Lab Solutions permitido
 - **Telegram:** multi-conta — `default` (Arquiteto) + `postmaster` (PostMaster)
@@ -113,7 +113,7 @@ agent-council, ai-humanizer, clawdbot-documentation-expert, decide, escalate, le
 
 ## Infraestrutura (estado atual)
 
-- **VPS:** Contabo — Ubuntu 24.04, Europe/Berlin
+- **VPS:** Contabo — Ubuntu 24.04, America/Sao_Paulo (mudado em 2026-02-27)
 - **Gateway:** systemd user, porta 18789, RPC ok
 - **WhatsApp:** configurado com número do bot, grupo Red Lab Solutions permitido
 - **Telegram:** multi-conta — `default` (Arquiteto) + `postmaster` (PostMaster) + `oraculo` (Oráculo)
