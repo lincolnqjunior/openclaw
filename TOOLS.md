@@ -150,12 +150,26 @@ Cada agente pode ter uma conta Telegram separada:
 Padrão: `github.com/lincolnqjunior/openclaw-<agent-id>`
 Workspace tem `.git` apontando para esse repositório.
 
+### Criação de novo agente
+
+Usar o wizard interativo (CLI):
+```bash
+openclaw agents add <Nome>
+```
+Depois de criado pelo wizard:
+1. Personalizar os arquivos do workspace: SOUL.md, IDENTITY.md, USER.md, TOOLS.md, HEARTBEAT.md, AGENTS.md, MEMORY.md
+2. Criar estrutura de memória: `memory/` + subpastas com `.gitkeep`
+3. Criar repo GitHub: `curl -X POST api.github.com/user/repos -d '{"name":"openclaw-<id>",...}'`
+4. Conectar: `git remote add origin https://$TOKEN@github.com/lincolnqjunior/openclaw-<id>.git && git push -u origin main`
+5. O Arquiteto é responsável por manter o repositório de todos os agentes do esquadrão.
+
 ### Agentes ativos
 
 | ID | Nome | Modelo | Workspace | Repo |
 |----|------|--------|-----------|------|
 | main | Arquiteto | claude-sonnet-4.6 | ~/.openclaw/workspace | lincolnqjunior/openclaw |
 | postmaster | PostMaster | grok-code-fast-1 | ~/.openclaw/workspaces/postmaster | lincolnqjunior/openclaw-postmaster |
+| oraculo | Oráculo | gemini-3.1-pro-preview | ~/.openclaw/workspaces/oraculo | lincolnqjunior/openclaw-oraculo |
 
 ---
 

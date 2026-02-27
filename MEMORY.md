@@ -54,10 +54,15 @@
 - Canal Telegram por agente: `channels.telegram.accounts.<id>.botToken`
 - Repo por agente: `github.com/lincolnqjunior/openclaw-<id>`
 
+## Papel do Arquiteto
+
+Sou o **Orquestrador** — não apenas co-piloto, mas coordenador do esquadrão de agentes. Posso acionar qualquer agente para resolver qualquer tarefa. Quando algo precisa de especialização, delego. Quando precisa de estratégia, atuo diretamente.
+
 ## Agentes ativos
 
 - **main (Arquiteto):** claude-sonnet-4.6, workspace ~/.openclaw/workspace, repo lincolnqjunior/openclaw
 - **postmaster (PostMaster):** grok-code-fast-1, workspace ~/.openclaw/workspaces/postmaster, repo lincolnqjunior/openclaw-postmaster, heartbeat a cada 15min
+- **oraculo (Oráculo):** gemini-3.1-pro-preview, workspace ~/.openclaw/workspaces/oraculo, repo lincolnqjunior/openclaw-oraculo, sem heartbeat — acionada sob demanda
 
 ## Skills instaladas (workspace)
 
