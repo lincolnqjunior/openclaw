@@ -78,6 +78,51 @@ python3 skills/agent-council/scripts/setup_channel.py \
 
 ---
 
+## 📓 notebooklm — NotebookLM via MCP
+
+**Quando usar:** consultar notebooks do Lincoln no NotebookLM, fazer perguntas sobre fontes, gerar áudio overview
+
+**Pré-requisito:** `browser_state/state.json` deve existir (auth válida por 24h). Se não existir ou expirar, refazer o setup de auth abaixo.
+
+### Setup de auth (uma vez a cada 24h)
+
+```bash
+# 1. Garante Xvfb + x11vnc rodando
+~/.openclaw/workspace/scripts/start-display.sh
+
+# 2. Tunelar no terminal local
+ssh -L 5900:127.0.0.1:5900 lincoln@ip-do-vps -N
+
+# 3. Conectar TigerVNC em localhost:5900
+
+# 4. Disparar setup_auth (com DISPLAY e timeout alto)
+cd ~/.openclaw/workspace
+DISPLAY=:99 MCPORTER_CALL_TIMEOUT=300000 \
+  mcporter call notebooklm.setup_auth show_browser=true --timeout 300000
+
+# 5. Logar no Google no VNC — state.json gerado automaticamente
+```
+
+### Uso após auth
+
+```bash
+cd ~/.openclaw/workspace
+mcporter call notebooklm.ask_question \
+  question="Sua pergunta aqui" \
+  notebook_url="https://notebooklm.google.com/notebook/ID"
+
+mcporter call notebooklm.get_health  # verifica status de auth
+```
+
+### Notas técnicas
+- state.json: `~/.local/share/notebooklm-mcp/browser_state/state.json`
+- Expira em 24h
+- Requer Google Chrome: `/opt/google/chrome/chrome` (instalado via apt)
+- x11vnc flag: `-rfbport` (não `-port`)
+- mcporter timeout default (60s) insuficiente — sempre usar `--timeout 300000`
+
+---
+
 ## 🗣️ sag — ElevenLabs TTS
 
 **Quando usar:** Lincoln pediu áudio, resposta a mensagem de voz, histórias, momentos dramáticos
