@@ -118,6 +118,47 @@ Configurações técnicas, credenciais e detalhes de instalação. Para **como u
 
 ---
 
+## Estrutura de Agentes (padrão OpenClaw)
+
+O OpenClaw usa estrutura separada para workspaces e dados internos dos agentes:
+
+- **Workspace do agente:** `~/.openclaw/workspaces/<id>/` — arquivos editáveis (SOUL, HEARTBEAT, memory, etc.)
+- **Dados internos:** `~/.openclaw/agents/<id>/` — sessions, auth (gerenciado pelo gateway, não editar)
+- **Config do gateway:** `~/.openclaw/openclaw.json` → `agents.list[]`
+
+### Campos obrigatórios no config do agente
+
+```json
+{
+  "id": "agent-id",
+  "name": "Nome do Agente",
+  "workspace": "/home/lincoln/.openclaw/workspaces/agent-id",
+  "agentDir": "/home/lincoln/.openclaw/agents/agent-id/agent",
+  "model": "provider/model-name"
+}
+```
+
+### Canal dedicado por agente (Telegram multi-conta)
+
+Cada agente pode ter uma conta Telegram separada:
+- Criar bot no BotFather → obter token
+- Adicionar em `channels.telegram.accounts.<id>.botToken`
+- Criar binding: `{ agentId: "<id>", match: { channel: "telegram", accountId: "<id>" } }`
+
+### Repositório por agente
+
+Padrão: `github.com/lincolnqjunior/openclaw-<agent-id>`
+Workspace tem `.git` apontando para esse repositório.
+
+### Agentes ativos
+
+| ID | Nome | Modelo | Workspace | Repo |
+|----|------|--------|-----------|------|
+| main | Arquiteto | claude-sonnet-4.6 | ~/.openclaw/workspace | lincolnqjunior/openclaw |
+| postmaster | PostMaster | grok-code-fast-1 | ~/.openclaw/workspaces/postmaster | lincolnqjunior/openclaw-postmaster |
+
+---
+
 ## Segurança
 
 - Credenciais/senhas: **nunca inline no chat** — sugerir alternativa segura antes de receber

@@ -38,12 +38,26 @@
 - **VPS:** Contabo — Ubuntu 24.04, Europe/Berlin
 - **Gateway:** systemd user, porta 18789, RPC ok
 - **WhatsApp:** configurado com número do bot, grupo Red Lab Solutions permitido
-- **Telegram:** canal principal ativo
+- **Telegram:** multi-conta — `default` (Arquiteto) + `postmaster` (PostMaster)
 - **Google Workspace:** lincolnqjunior@gmail.com (gmail, calendar, drive)
 - **TTS:** Brian (ElevenLabs) — voz escolhida pelo Lincoln
 - **Python:** uv (nunca pip/pip3)
 - **MCP time:** funcionando (America/Sao_Paulo)
 - **MCP notebooklm:** pendente — ver TODO-notebooklm.md
+
+## Estrutura de Agentes (padrão)
+
+- Workspace: `~/.openclaw/workspaces/<id>/`
+- Dados internos: `~/.openclaw/agents/<id>/` (não editar)
+- Config: `~/.openclaw/openclaw.json` → `agents.list[]`
+- Campos obrigatórios: `id`, `name`, `workspace`, `agentDir`, `model`
+- Canal Telegram por agente: `channels.telegram.accounts.<id>.botToken`
+- Repo por agente: `github.com/lincolnqjunior/openclaw-<id>`
+
+## Agentes ativos
+
+- **main (Arquiteto):** claude-sonnet-4.6, workspace ~/.openclaw/workspace, repo lincolnqjunior/openclaw
+- **postmaster (PostMaster):** grok-code-fast-1, workspace ~/.openclaw/workspaces/postmaster, repo lincolnqjunior/openclaw-postmaster, heartbeat a cada 15min
 
 ## Skills instaladas (workspace)
 
