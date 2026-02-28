@@ -13,6 +13,11 @@
         "DEFAULT_MINIMUM_TOKENS": "10000"
       }
     },
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["@playwright/mcp@latest", "--storage-state", "/home/lincoln/.openclaw/workspace/config/playwright-tldv-state.json"]
+    },
     "time": {
       "type": "stdio",
       "command": "/home/lincoln/.mcp-env/bin/python",

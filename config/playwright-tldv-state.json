@@ -1,0 +1,59 @@
+{
+  "cookies": [
+    {
+      "name": "intercom-id-d3vofo4b",
+      "value": "c9b10ff7-781c-400c-9a41-34402596ddc3",
+      "domain": ".tldv.io",
+      "path": "/",
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "intercom-device-id-d3vofo4b",
+      "value": "5452aab9-b830-4acf-b461-ce27c113a53f",
+      "domain": ".tldv.io",
+      "path": "/",
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "__stripe_mid",
+      "value": "645221e2-96de-4f3f-b30c-ce379f8e7cfb2455ac",
+      "domain": ".tldv.io",
+      "path": "/",
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "_cioanonid",
+      "value": "0aa0ea8a-fcfe-2f6f-c6e1-a52d1eceaf58",
+      "domain": ".tldv.io",
+      "path": "/",
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "intercom-session-d3vofo4b",
+      "value": "alQ3eVVlMGl0QXh6M0Y3NHhMVFpHVDN4WUJwcUJUTWRpdjdxam1lUzMzOFBDVjMvZ1c2Q3lGTFM4S1dOaUlTUUphcHFBTll0dkJHWHE2UnRPVHJ5QXlid0VlczNEN0JDbFZuTW5ZZHBwZE9uWUR2ZC9tSC9ma0tkQkFHaWRoaDhWY2pyeUJVOHFLRGM0NGhnbHJTajdDWWlwNDJ5VWY4Z0YzaHRTNHZrMGs4MkdKQ1Qvd1hDcUVMWEd2eG5tc3RYNHZFV2tnZnlwVlRUM0hYZnhUTWNlZz09LS1pSWFtVTQrUXRpdGxxMnl1Zk5Cc2hBPT0=--bf035148f3f7427e27f641ad57c03387e372e1ae",
+      "domain": ".tldv.io",
+      "path": "/",
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "tldvtoken",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjVmMmNmY2VlLTg0NTgtNDdjMC05MmFkLWFiZjNjOWEwMWJjYyJ9.eyJpZCI6IjY0NTkwM2ZmODY0ZjA4MDAxMzNkYzlmYSIsImVtYWlsIjoibGluY29sbkBsaXZpbmduZXQuY29tLmJyIiwiaWF0IjoxNzcwNzQwMjM5LCJleHAiOjE3NzMzMzIyMzl9.twbkV1ZO1YCMG3D9wPs0Nw_fvebtdwyQ5mMusWIXrP0",
+      "domain": ".tldv.io",
+      "path": "/",
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": []
+}
