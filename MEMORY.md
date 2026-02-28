@@ -154,7 +154,18 @@ agent-council, ai-humanizer, clawdbot-documentation-expert, context7, decide, es
 - Gateway token em ~/.openclaw/openclaw.json
 - Sandboxing por agente disponível — usar `tools.deny: ["exec"]` em agentes públicos
 
-## Histórico resumido
+## tldv.io — Extração de Transcrições
+
+- **Token:** `~/.tldv-token` — JWT `_cap_jwt`, validade 2026-03-12
+- **Auth:** `Authorization: Bearer <token>` (cookie retorna 403)
+- **Script:** `/home/lincoln/.openclaw/workspace/scripts/tldv-extract.py`
+- **API:** `https://api.tldv.io/meetings/{id}` + `/transcript`
+- **Formato transcrição:** `{ "data": [ [word_obj...] ] }` — word_obj tem `word`, `speaker`, `startTime`, `endTime`
+- **Saída:** Markdown por speaker em `tldv-transcripts/{YYYY-MM}/`
+- **Reuniões arquivadas (plano free):** retornam 403 → script exit code 2 (não fatal)
+- **Renovar token:** abrir tldv.io no Chrome relay → copiar `_cap_jwt` do localStorage → `echo <token> > ~/.tldv-token`
+
+
 
 - 2026-02-26/27: Setup completo do ambiente do zero — skills, TTS, Whisper, mcporter, gog, memory search, ontologia, WhatsApp, Todoist
-- 2026-02-27: PostMaster criado com heartbeat 15min + memória evolutiva; Oráculo criada como especialista de pesquisa profunda; doc da arquitetura OpenClaw produzida pela Oráculo e incorporada à memória do Arquiteto
+- 2026-02-27: PostMaster criado com heartbeat 15min + memória evolutiva; Oráculo criada como especialista de pesquisa profunda; doc da arquitetura OpenClaw produzida pela Oráculo e incorporada à memória do Arquiteto; agent-to-agent habilitado e testado (c6baec09); tldv API confirmada e script de extração funcionando (c7150e1)
