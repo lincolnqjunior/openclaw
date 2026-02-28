@@ -169,6 +169,35 @@ agent-council, ai-humanizer, clawdbot-documentation-expert, context7, decide, es
 
 - 2026-02-26/27: Setup completo do ambiente do zero — skills, TTS, Whisper, mcporter, gog, memory search, ontologia, WhatsApp, Todoist
 - 2026-02-27: PostMaster criado com heartbeat 15min + memória evolutiva; Oráculo criada como especialista de pesquisa profunda; doc da arquitetura OpenClaw produzida pela Oráculo e incorporada à memória do Arquiteto; agent-to-agent habilitado e testado (c6baec09); tldv API confirmada e script de extração funcionando (c7150e1); Playwright configurado com MCP persistente (--user-data-dir) + CLI scripts (simple + stealth)
+- 2026-02-28: PIX Automation completa no PostMaster — GPay via Chrome relay CDP (wallet.google.com), BB via CSV upload manual, 208 transações importadas e classificadas em 36 categorias, 13 duplicatas GPay/BB tratadas, 3 crons configurados (diário/semanal/mensal-último-dia)
+
+## PIX Automation — Contexto do Lincoln (2026-02-28)
+
+### Estabelecimentos fixos identificados
+- **Eliane dos Santos Ferreira** → Faxina (~3x/mês, R$200 cada)
+- **Alcir Bueno Franco** → Aluguel (mensal, ~R$1.935)
+- **Assoc. Franciscana de Ensino** → Educação/Escola (mensalidade)
+- **Claudemir Constantino Portugal** → Bar/Tabacaria (cigarros, semanal ~R$28-34)
+- **Stephany Cabral Xavier** → Pet Shop (Jessie=cachorra, Frida e Luke=gatos)
+- **Gustavo Deister Leal** → Ervas Medicinais
+- **Enzo Itaipava LTDA** → Posto de gasolina
+- **Auto Posto Bonsucesso** → Posto de gasolina
+- **Distribuidora Correas** → Água potável
+- **BB Rende Fácil** → Transferência interna (excluir dos gastos sempre)
+- **LIVING CONSULT** → Entrada de salário/receita
+
+### Infraestrutura PIX no PostMaster
+- DB: `data/despesas_pix.sqlite` — tabelas: comprovantes, categorias, ingest_state
+- Cookies GPay: `data/cookies-google.json` — válidos até 2027-04-04
+- Chrome relay CDP: `ws://127.0.0.1:18792/cdp?token=<gateway_token>`
+- GPay scraper: reutiliza aba já aberta do wallet (não navega de novo — evita timeout)
+- BB: upload manual CSV (ISO-8859-1), processar com `ingest-bb-xlsx.js`
+
+### Lições técnicas críticas
+- `document.cookie` não pega HttpOnly — usar CDP `context.cookies([urls])`
+- DOM wallet: `lines[0]`=avatar, `lines[1]`=nome, `lines[2]`=data
+- SQLite upsert sem UNIQUE: fazer SELECT+INSERT/UPDATE manual
+- Credencial em package.json → GitHub Push Protection bloqueia (já aconteceu)
 
 ## Playwright — automação web
 
