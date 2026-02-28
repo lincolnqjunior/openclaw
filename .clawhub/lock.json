@@ -48,6 +48,10 @@
     "context7": {
       "version": "1.0.3",
       "installedAt": 1772220257279
+    },
+    "recursive-self-improvement": {
+      "version": "1.0.0",
+      "installedAt": 1772242881165
     }
   }
 }

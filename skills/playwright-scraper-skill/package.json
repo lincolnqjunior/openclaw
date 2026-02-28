@@ -1,0 +1,11 @@
+{
+  "name": "playwright-scraper-skill",
+  "version": "1.2.0",
+  "description": "Playwright-based web scraping with anti-bot stealth support",
+  "scripts": {
+    "install-browsers": "npx playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "*"
+  }
+}

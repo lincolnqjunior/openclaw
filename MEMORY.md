@@ -145,7 +145,7 @@ Sou o **Orquestrador** — não apenas co-piloto, mas coordenador do esquadrão 
 
 ## Skills instaladas (workspace)
 
-agent-council, ai-humanizer, clawdbot-documentation-expert, context7, decide, escalate, learning, memory, ontology, openclaw-github-assistant, self-improving, tavily, todoist
+agent-council, ai-humanizer, clawdbot-documentation-expert, context7, decide, escalate, learning, memory, ontology, openclaw-github-assistant, playwright-scraper-skill, self-improving, tavily, todoist
 
 ## Segurança
 
@@ -168,4 +168,12 @@ agent-council, ai-humanizer, clawdbot-documentation-expert, context7, decide, es
 
 
 - 2026-02-26/27: Setup completo do ambiente do zero — skills, TTS, Whisper, mcporter, gog, memory search, ontologia, WhatsApp, Todoist
-- 2026-02-27: PostMaster criado com heartbeat 15min + memória evolutiva; Oráculo criada como especialista de pesquisa profunda; doc da arquitetura OpenClaw produzida pela Oráculo e incorporada à memória do Arquiteto; agent-to-agent habilitado e testado (c6baec09); tldv API confirmada e script de extração funcionando (c7150e1)
+- 2026-02-27: PostMaster criado com heartbeat 15min + memória evolutiva; Oráculo criada como especialista de pesquisa profunda; doc da arquitetura OpenClaw produzida pela Oráculo e incorporada à memória do Arquiteto; agent-to-agent habilitado e testado (c6baec09); tldv API confirmada e script de extração funcionando (c7150e1); Playwright configurado com MCP persistente (--user-data-dir) + CLI scripts (simple + stealth)
+
+## Playwright — automação web
+
+- **MCP (interativo):** mcporter call playwright.browser_navigate — usa accessibility tree; configurado com --user-data-dir ~/.openclaw/playwright_data para persistência de sessão
+- **CLI simples:** node skills/playwright-scraper-skill/scripts/playwright-simple.js <URL> — JSON limpo, baixo token
+- **CLI stealth:** playwright-stealth.js — anti-bot, Cloudflare, UA realista (iPhone), hide webdriver
+- **Ordem de escalada:** web_fetch → simple → stealth
+- **playwright-cli clawhub:** slug inexistente — não usar

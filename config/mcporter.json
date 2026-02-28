@@ -16,7 +16,11 @@
     "playwright": {
       "type": "stdio",
       "command": "npx",
-      "args": ["@playwright/mcp@latest", "--storage-state", "/home/lincoln/.openclaw/workspace/config/playwright-tldv-state.json"]
+      "args": [
+        "@playwright/mcp@latest",
+        "--user-data-dir", "/home/lincoln/.openclaw/playwright_data",
+        "--headless"
+      ]
     },
     "time": {
       "type": "stdio",
