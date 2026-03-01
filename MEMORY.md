@@ -155,7 +155,38 @@ agent-council, ai-humanizer, clawdbot-documentation-expert, context7, decide, es
 - Gateway token em ~/.openclaw/openclaw.json
 - Sandboxing por agente disponível — usar `tools.deny: ["exec"]` em agentes públicos
 
-## tldv.io — Extração de Transcrições
+## Linear App — Integração (2026-03-01)
+
+- **CLI:** `/home/lincoln/.openclaw/workspace/scripts/linear-cli.js`
+- **teamKey:** LIN (Lincoln Squad) — não SQD
+- **Auth:** `~/.linear-token` (chmod 600)
+- **Comandos:** create, update, comment, list-states, list-labels
+- **Bug @linear/sdk:** filter por `identifier` não funciona — usar `searchIssues` + `.find()`
+- **Estados customizados:** Em Testes, Entregue (além dos padrões)
+- **Labels:** agent:arquiteto/postmaster/oraculo/keymaker + type:feature/bug/infra/research/automation
+- **Ticket de referência:** LIN-5 (Entregue)
+
+## KeyMaker — Padrão de Comportamento Observado
+
+- **Problema:** gpt-5.3-codex falha em tarefas multi-passo com filesystem — responde ETAs e planos, mas não executa ações concretas no disco
+- **Ocorrência:** 3 falhas consecutivas no LIN-001 (16:45→19:35, Arquiteto assumiu)
+- **Guardrail a implementar:** timeout de 20min para execução de tarefa → Arquiteto assume automaticamente
+- **Uso ideal:** tarefas de codificação curtas e bem delimitadas, com artefatos únicos
+
+## Fluxo Linear (operacional)
+
+Abertura de ticket pelo Arquiteto:
+```bash
+node scripts/linear-cli.js create --title "..." --labels "agent:oraculo,type:research"
+```
+Atualização de estado:
+```bash
+node scripts/linear-cli.js update LIN-XX --state "Em Testes"
+```
+Comentário:
+```bash
+node scripts/linear-cli.js comment LIN-XX --text "PRD aprovado pelo Arquiteto"
+```
 
 - **Token:** `~/.tldv-token` — JWT `_cap_jwt`, validade 2026-03-12
 - **Auth:** `Authorization: Bearer <token>` (cookie retorna 403)
