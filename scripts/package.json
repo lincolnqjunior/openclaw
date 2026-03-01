@@ -1,0 +1,8 @@
+{
+  "name": "linear-cli",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@linear/sdk": "^27.0.0"
+  }
+}
